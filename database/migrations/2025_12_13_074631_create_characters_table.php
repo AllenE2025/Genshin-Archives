@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('characters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('element')->default('None');
-            $table->string('weapon_type')->default('None');
-            $table->integer('rarity')->default('None');
+            $table->string('element');
+            $table->string('weapon_type');
+            $table->integer('rarity');
             $table->timestamps();
         });
     }

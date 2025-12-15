@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Characters;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Validation\Rule;
 
 class CharactersController extends Controller
 {
@@ -32,7 +33,10 @@ class CharactersController extends Controller
     public function store(Request $request)
     {
         $validated=$request->validate([
-            'name'=>'required|string'
+            'name'=>'required|string|unique:characters,name',
+            'element'=>'required|string',
+            'weapon_type'=>'required|string',
+            'rarity'=>'required|integer|in:4,5'
         ]);
 
         Characters::create($validated);
@@ -66,7 +70,10 @@ class CharactersController extends Controller
     public function update(Request $request, Characters $character)
     {
         $validated=$request->validate([
-            'name'=>'required|string'
+            'name'=>['required','string', Rule::unique('characters')->ignore($character->id)],
+            'element'=>'required|string',
+            'weapon_type'=>'required|string',
+            'rarity'=>'required|integer|in:4,5'
         ]);
 
         $character->update($validated);
