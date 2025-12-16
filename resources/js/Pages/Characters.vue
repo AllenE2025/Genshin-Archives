@@ -83,14 +83,14 @@ const deleteCharacter = (id) => {
                     </div>
                     <div class="flex space-x-2">
                         <Link
-                            :href="route('characters.edit', character.id)"
-                            class="px-3 py-1 bg-yellow-500 text-white rounded shadow hover:bg-yellow-600"
+                            :href="route('characters.edit', character)"
+                            class="px-3 py-1 text-yellow-600 hover:bg-yellow-100 rounded-lg hover:scale-105 transition-transform"
                         >
                             Edit
                         </Link>
                         <button
                             @click="deleteCharacter(character.id)"
-                            class="px-3 py-1 bg-red-600 text-white rounded shadow hover:bg-red-700"
+                            class="px-3 py-1 text-red-600 hover:bg-red-100 rounded-lg hover:scale-105 transition-transform"
                         >
                             Delete
                         </button>

@@ -3,22 +3,22 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
-    <div class="w-full items-center flex justify-evenly p-4 bg-gray-200">
+    <div class="w-full items-center flex justify-evenly p-4 bg-green">
         <img src="/genshinlogo.png" alt="Genshin Logo" />
         <Link
             :href="route('characters.index')"
-            class="px-4 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700"
+            class="px-4 py-2 text-purple-800 rounded-lg hover:bg-blue-200 hover:scale-105 transition-transform"
         >
             Characters
         </Link>
 
         <button
-            class="px-4 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700"
+            class="px-4 py-2 text-purple-800 rounded-lg hover:bg-blue-200 hover:scale-105 transition-transform"
         >
             Artifacts
         </button>
         <button
-            class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+            class="px-4 py-2 text-purple-800 rounded-lg hover:bg-blue-200 hover:scale-105 transition-transform"
         >
             Regions
         </button>

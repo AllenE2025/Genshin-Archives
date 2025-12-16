@@ -13,4 +13,9 @@ class Characters extends Model
         'weapon_type',
         'rarity',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }

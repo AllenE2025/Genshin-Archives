@@ -3,7 +3,9 @@ import NavBar from "@/Components/NavBar.vue";
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col bg-gray-300">
+    <div
+        class="min-h-screen flex flex-col bg-gradient-to-b from-blue-100 to-white"
+    >
         <!-- Navbar always shows -->
         <NavBar />
 
@@ -13,6 +15,6 @@ import NavBar from "@/Components/NavBar.vue";
         </main>
 
         <!-- Footer -->
-        <footer class="text-center p-2 bg-gray-200">2025</footer>
+        <footer class="text-purple-800 text-center p-2 bg-white">2025</footer>
     </div>
 </template>

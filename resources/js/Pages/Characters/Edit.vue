@@ -47,7 +47,7 @@ function submit() {
                 <h1 class="text-2xl font-bold">Edit Character</h1>
                 <Link
                     :href="route('characters.index')"
-                    class="px-4 py-2 bg-gray-600 text-white rounded shadow hover:bg-gray-700"
+                    class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
                 >
                     Go Back
                 </Link>
@@ -67,62 +67,26 @@ function submit() {
 
             <div class="mb-4">
                 <label class="block font-medium mb-1">Element</label>
-                <div class="flex-row space-y-1">
-                    <label class="flex items-center space-x-2">
+                <div class="flex flex-col space-y-1">
+                    <label
+                        v-for="el in [
+                            'Geo',
+                            'Anemo',
+                            'Pyro',
+                            'Hydro',
+                            'Cryo',
+                            'Electro',
+                            'Dendro',
+                        ]"
+                        :key="el"
+                        class="flex items-center space-x-2"
+                    >
                         <input
                             type="radio"
-                            value="Geo"
+                            :value="el"
                             v-model="form.element"
                         />
-                        <span>Geo</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Anemo"
-                            v-model="form.element"
-                        />
-                        <span>Anemo</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Pyro"
-                            v-model="form.element"
-                        />
-                        <span>Pyro</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Hydro"
-                            v-model="form.element"
-                        />
-                        <span>Hydro</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Cryo"
-                            v-model="form.element"
-                        />
-                        <span>Cryo</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Electro"
-                            v-model="form.element"
-                        />
-                        <span>Electro</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Dendro"
-                            v-model="form.element"
-                        />
-                        <span>Dendro</span>
+                        <span>{{ el }}</span>
                     </label>
                 </div>
                 <p v-if="errors.element" class="text-red-600 text-sm mt-1">
@@ -132,46 +96,24 @@ function submit() {
 
             <div class="mb-4">
                 <label class="block font-medium mb-1">Weapon Type</label>
-                <div class="flex-row space-y-1">
-                    <label class="flex items-center space-x-2">
+                <div class="flex flex-col space-y-1">
+                    <label
+                        v-for="wt in [
+                            'Polearm',
+                            'Sword',
+                            'Claymore',
+                            'Bow',
+                            'Catalyst',
+                        ]"
+                        :key="wt"
+                        class="flex items-center space-x-2"
+                    >
                         <input
                             type="radio"
-                            value="Polearm"
+                            :value="wt"
                             v-model="form.weapon_type"
                         />
-                        <span>Polearm</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Sword"
-                            v-model="form.weapon_type"
-                        />
-                        <span>Sword</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Claymore"
-                            v-model="form.weapon_type"
-                        />
-                        <span>Claymore</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Bow"
-                            v-model="form.weapon_type"
-                        />
-                        <span>Bow</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input
-                            type="radio"
-                            value="Catalyst"
-                            v-model="form.weapon_type"
-                        />
-                        <span>Catalyst</span>
+                        <span>{{ wt }}</span>
                     </label>
                 </div>
                 <p v-if="errors.weapon_type" class="text-red-600 text-sm mt-1">
@@ -182,13 +124,13 @@ function submit() {
             <div class="mb-4">
                 <label class="block font-medium mb-1">Rarity</label>
                 <div class="flex space-x-4">
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" value="4" v-model="form.rarity" />
-                        <span>4★</span>
-                    </label>
-                    <label class="flex items-center space-x-2">
-                        <input type="radio" value="5" v-model="form.rarity" />
-                        <span>5★</span>
+                    <label
+                        v-for="r in [4, 5]"
+                        :key="r"
+                        class="flex items-center space-x-2"
+                    >
+                        <input type="radio" :value="r" v-model="form.rarity" />
+                        <span>{{ r }}★</span>
                     </label>
                 </div>
                 <p v-if="errors.rarity" class="text-red-600 text-sm mt-1">
