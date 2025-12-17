@@ -1,9 +1,10 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
+import { computed, ref } from "vue";
 
 // Props or data for characters
-defineProps({
+const props = defineProps({
     characters: Array,
 });
 
@@ -19,6 +20,17 @@ const deleteCharacter = (id) => {
         });
     }
 };
+
+const searchQuery = ref("");
+
+const filteredCharacters = computed(() => {
+    if (!searchQuery.value) {
+        return props.characters;
+    }
+    return props.characters.filter((character) =>
+        character.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
+});
 </script>
 
 <template>
@@ -41,14 +53,19 @@ const deleteCharacter = (id) => {
                     </Link>
                 </div>
             </div>
-
+            <input
+                v-model="searchQuery"
+                type="text"
+                placeholder="Search characters..."
+                class="w-full p-2 border rounded mb-4"
+            />
             <div v-if="characters.length === 0" class="text-gray-500">
                 Start by adding some characters!
             </div>
 
-            <ul v-else class="space-y-3">
+            <ul v-if="filteredCharacters.length > 0" class="space-y-3">
                 <li
-                    v-for="character in characters"
+                    v-for="character in filteredCharacters"
                     :key="character.id"
                     class="p-4 bg-white rounded shadow flex justify-between items-center"
                 >
@@ -83,7 +100,7 @@ const deleteCharacter = (id) => {
                     </div>
                     <div class="flex space-x-2">
                         <Link
-                            :href="route('characters.edit', character)"
+                            :href="route('characters.edit', character.id)"
                             class="px-3 py-1 text-yellow-600 hover:bg-yellow-100 rounded-lg hover:scale-105 transition-transform"
                         >
                             Edit
@@ -97,6 +114,9 @@ const deleteCharacter = (id) => {
                     </div>
                 </li>
             </ul>
+            <p v-else class="text-center text-gray-500">
+                No characters match your search.
+            </p>
         </div>
     </AppLayout>
 </template>

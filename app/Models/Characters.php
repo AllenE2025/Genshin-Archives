@@ -14,8 +14,8 @@ class Characters extends Model
         'rarity',
     ];
 
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'name';
+    // }
 }
