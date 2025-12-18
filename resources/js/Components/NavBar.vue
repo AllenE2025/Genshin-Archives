@@ -17,10 +17,11 @@ import { Link } from "@inertiajs/vue3";
         >
             Artifacts
         </button>
-        <button
+        <Link 
+            :href="route('regions.index')"
             class="px-4 py-2 text-purple-800 rounded-lg hover:bg-blue-200 hover:scale-105 transition-transform"
         >
             Regions
-        </button>
+        </Link>
     </div>
 </template>
