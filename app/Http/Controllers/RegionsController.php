@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Regions;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Illuminate\Validation\Rule;
 
 class RegionsController extends Controller
 {
@@ -12,7 +14,9 @@ class RegionsController extends Controller
      */
     public function index()
     {
-        return inertia('Regions');
+        return inertia('Regions', [
+            'regions' => Regions::all(),
+        ]);
     }
 
     /**
@@ -55,7 +59,9 @@ class RegionsController extends Controller
      */
     public function edit(Regions $regions)
     {
-        //
+        return inertia('Regions/Edit', [
+            'region' => $regions,
+        ]);
     }
 
     /**

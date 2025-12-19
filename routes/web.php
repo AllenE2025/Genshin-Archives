@@ -27,4 +27,6 @@ Route::get('/regions', [RegionsController::class, 'index'])->name('regions.index
 
 Route::get('/regions/create', [RegionsController::class, 'create'])->name('regions.create');
 
+Route::post('/regions', [RegionsController::class, 'store'])->name('regions.store');
+
 require __DIR__.'/auth.php';
