@@ -15,18 +15,8 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/characters', [CharactersController::class, 'index'])->name('characters.index');
-
-Route::get('/characters/create', [CharactersController::class, 'create'])->name('characters.create');
-
-Route::post('/characters', [CharactersController::class, 'store'])->name('characters.store');
-
 Route::resource('characters', CharactersController::class);
 
-Route::get('/regions', [RegionsController::class, 'index'])->name('regions.index');
-
-Route::get('/regions/create', [RegionsController::class, 'create'])->name('regions.create');
-
-Route::post('/regions', [RegionsController::class, 'store'])->name('regions.store');
+Route::resource('regions', RegionsController::class);
 
 require __DIR__.'/auth.php';

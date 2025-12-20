@@ -57,26 +57,36 @@ class RegionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Regions $regions)
+    public function edit(Regions $region)
     {
         return inertia('Regions/Edit', [
-            'region' => $regions,
+            'region' => $region,
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Regions $regions)
+    public function update(Request $request, Regions $region)
     {
-        //
+        $validated=$request->validate([
+            'name'=>['required','string',Rule::unique('regions')->ignore($region->id)],
+            'description'=>'required|string',
+            'local_specialty'=>'required|string',
+            'elite_boss'=>'required|string',
+            'world_boss'=>'required|string'
+        ]);
+        $region->update($validated);
+        return redirect()->route('regions.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Regions $regions)
+    public function destroy(Regions $region)
     {
-        //
+        $region->delete();
+
+        return redirect()->route('regions.index');
     }
 }

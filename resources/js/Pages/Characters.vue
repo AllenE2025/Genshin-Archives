@@ -12,12 +12,7 @@ const props = defineProps({
 const deleteCharacter = (id) => {
     if (confirm("Are you sure you want to delete this character?")) {
         // Call Inertia to send DELETE request to your Laravel route
-        router.delete(route("characters.destroy", id), {
-            onSuccess: () => {
-                // Refresh the page to update the list
-                router.visit(route("characters.index"));
-            },
-        });
+        router.delete(route("characters.destroy", id));
     }
 };
 

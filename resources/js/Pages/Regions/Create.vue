@@ -3,6 +3,7 @@ import AppLayout from "@/Layouts/AppLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 
+// Form state
 const form = ref({
     name: "",
     description: "",
@@ -10,11 +11,16 @@ const form = ref({
     elite_boss: "",
     world_boss: "",
 });
+
+// Error messages
 const errors = ref({});
+
+// Disable button while submitting
 const disabled = ref(false);
 
+// Submit function
 function submit() {
-    if (disabled.value) return; // prevent multiple clicks
+    if (disabled.value) return;
     disabled.value = true;
 
     router.post(route("regions.store"), form.value, {
@@ -29,9 +35,11 @@ function submit() {
     });
 }
 </script>
+
 <template>
     <AppLayout>
         <div class="max-w-3xl mx-auto mt-10 p-4">
+            <!-- Back Link -->
             <Link
                 :href="route('regions.index')"
                 class="inline-block mb-6 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300"
@@ -40,6 +48,7 @@ function submit() {
             </Link>
 
             <div class="bg-white p-6 rounded-lg shadow">
+                <!-- Header -->
                 <div class="text-center mb-6">
                     <h1 class="text-4xl font-bold mb-2">Create New Region</h1>
                     <p class="text-gray-600">
@@ -47,14 +56,14 @@ function submit() {
                     </p>
                 </div>
 
+                <!-- Form -->
                 <form @submit.prevent="submit" class="space-y-5">
                     <!-- Region Name -->
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-600 mb-1"
+                            >Region Name</label
                         >
-                            Region Name
-                        </label>
                         <input
                             v-model="form.name"
                             type="text"
@@ -70,9 +79,8 @@ function submit() {
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-600 mb-1"
+                            >Description</label
                         >
-                            Description
-                        </label>
                         <textarea
                             v-model="form.description"
                             rows="3"
@@ -91,9 +99,8 @@ function submit() {
                     <div>
                         <label
                             class="block text-sm font-medium text-gray-600 mb-1"
+                            >Local Specialty</label
                         >
-                            Local Specialty
-                        </label>
                         <input
                             v-model="form.local_specialty"
                             type="text"
@@ -108,14 +115,14 @@ function submit() {
                         </p>
                     </div>
 
-                    <!-- Bosses -->
+                    <!-- Bosses Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <!-- Elite Boss -->
                         <div>
                             <label
                                 class="block text-sm font-medium text-gray-600 mb-1"
+                                >Elite Boss</label
                             >
-                                Elite Boss
-                            </label>
                             <input
                                 v-model="form.elite_boss"
                                 type="text"
@@ -130,12 +137,12 @@ function submit() {
                             </p>
                         </div>
 
+                        <!-- World Boss -->
                         <div>
                             <label
                                 class="block text-sm font-medium text-gray-600 mb-1"
+                                >World Boss</label
                             >
-                                World Boss
-                            </label>
                             <input
                                 v-model="form.world_boss"
                                 type="text"
@@ -151,7 +158,7 @@ function submit() {
                         </div>
                     </div>
 
-                    <!-- Submit -->
+                    <!-- Submit Button -->
                     <div class="flex justify-end">
                         <button
                             type="submit"
