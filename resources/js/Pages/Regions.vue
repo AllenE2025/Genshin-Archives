@@ -19,7 +19,6 @@ const deleteRegion = (id) => {
             <!-- Header -->
             <div class="text-center mb-6">
                 <h1 class="text-4xl font-bold mb-2">Regions</h1>
-                <p class="text-gray-600">Explore the various regions of Teyvat!</p>
             </div>
 
             <!-- Action Buttons -->
@@ -28,7 +27,7 @@ const deleteRegion = (id) => {
                     :href="route('regions.create')"
                     class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300"
                 >
-                    Create New Region
+                    Add New Region
                 </Link>
                 <Link
                     :href="route('home')"
@@ -46,21 +45,29 @@ const deleteRegion = (id) => {
                     class="p-5 bg-white rounded-lg shadow"
                 >
                     <!-- Region Info -->
-                    <h2 class="text-2xl font-semibold mb-2">{{ region.name }}</h2>
+                    <h2 class="text-2xl font-semibold mb-2">
+                        {{ region.name }}
+                    </h2>
                     <p class="text-gray-700 mb-3">{{ region.description }}</p>
 
                     <!-- Region Details Grid -->
                     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                         <div>
-                            <span class="block text-gray-500 font-medium">Local Specialty</span>
+                            <span class="block text-gray-500 font-medium"
+                                >Local Specialty</span
+                            >
                             <span>{{ region.local_specialty }}</span>
                         </div>
                         <div>
-                            <span class="block text-gray-500 font-medium">Elite Boss</span>
+                            <span class="block text-gray-500 font-medium"
+                                >Elite Boss</span
+                            >
                             <span>{{ region.elite_boss }}</span>
                         </div>
                         <div>
-                            <span class="block text-gray-500 font-medium">World Boss</span>
+                            <span class="block text-gray-500 font-medium"
+                                >World Boss</span
+                            >
                             <span>{{ region.world_boss }}</span>
                         </div>
                     </div>
@@ -71,13 +78,13 @@ const deleteRegion = (id) => {
                             :href="route('regions.edit', region.id)"
                             class="px-3 py-1 text-yellow-600 hover:bg-yellow-100 rounded-lg hover:scale-105 transition-transform"
                         >
-                            Edit 
+                            Edit
                         </Link>
                         <button
                             @click="deleteRegion(region.id)"
                             class="px-3 py-1 text-red-600 hover:bg-red-100 rounded-lg hover:scale-105 transition-transform"
                         >
-                            Delete 
+                            Delete
                         </button>
                     </div>
                 </li>

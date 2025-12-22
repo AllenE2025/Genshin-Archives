@@ -50,7 +50,7 @@ function submit() {
             <div class="bg-white p-6 rounded-lg shadow">
                 <!-- Header -->
                 <div class="text-center mb-6">
-                    <h1 class="text-4xl font-bold mb-2">Create New Region</h1>
+                    <h1 class="text-4xl font-bold mb-2">Add New Region</h1>
                     <p class="text-gray-600">
                         Fill out the form below to add a new region to Teyvat.
                     </p>
@@ -165,7 +165,7 @@ function submit() {
                             :disabled="disabled"
                             class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                            Create Region
+                            Add Region
                         </button>
                     </div>
                 </form>

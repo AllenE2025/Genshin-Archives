@@ -35,7 +35,7 @@ function submit() {
     <AppLayout>
         <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold">Create Character</h1>
+                <h1 class="text-2xl font-bold">Add Character</h1>
                 <Link
                     :href="route('characters.index')"
                     class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"

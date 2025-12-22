@@ -31,22 +31,25 @@ const filteredCharacters = computed(() => {
 <template>
     <AppLayout>
         <div class="max-w-3xl mx-auto mt-10 p-4">
-            <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold">Characters</h1>
-                <div class="flex space-x-2">
-                    <Link
-                        :href="route('characters.create')"
-                        class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700"
-                    >
-                        Add a Character
-                    </Link>
-                    <Link
-                        :href="route('home')"
-                        class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
-                    >
-                        Home
-                    </Link>
-                </div>
+            <!-- Header -->
+            <div class="text-center mb-6">
+                <h1 class="text-4xl font-bold mb-2">Characters</h1>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end mb-6 space-x-4">
+                <Link
+                    :href="route('characters.create')"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300"
+                >
+                    Add New Character
+                </Link>
+                <Link
+                    :href="route('home')"
+                    class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
+                >
+                    Home
+                </Link>
             </div>
             <input
                 v-model="searchQuery"
