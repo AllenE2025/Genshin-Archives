@@ -1,10 +1,9 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link, router } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { Link, useForm } from "@inertiajs/vue3";
 
 // Form state
-const form = ref({
+const form = useForm({
     name: "",
     description: "",
     local_specialty: "",
@@ -12,27 +11,9 @@ const form = ref({
     world_boss: "",
 });
 
-// Error messages
-const errors = ref({});
-
-// Disable button while submitting
-const disabled = ref(false);
-
 // Submit function
 function submit() {
-    if (disabled.value) return;
-    disabled.value = true;
-
-    router.post(route("regions.store"), form.value, {
-        onSuccess: () => {
-            disabled.value = false;
-            router.visit(route("regions.index"));
-        },
-        onError: (err) => {
-            disabled.value = false;
-            errors.value = err;
-        },
-    });
+    form.post(route("regions.store"));
 }
 </script>
 
@@ -44,7 +25,7 @@ function submit() {
                 :href="route('regions.index')"
                 class="inline-block mb-6 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300"
             >
-                ← Back to Regions
+                Back to Regions
             </Link>
 
             <div class="bg-white p-6 rounded-lg shadow">
@@ -70,8 +51,11 @@ function submit() {
                             class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
                             placeholder="Enter region name"
                         />
-                        <p v-if="errors.name" class="text-red-600 text-sm mt-1">
-                            {{ errors.name }}
+                        <p
+                            v-if="form.errors.name"
+                            class="text-red-600 text-sm mt-1"
+                        >
+                            {{ form.errors.name }}
                         </p>
                     </div>
 
@@ -88,10 +72,10 @@ function submit() {
                             placeholder="Enter region description"
                         ></textarea>
                         <p
-                            v-if="errors.description"
+                            v-if="form.errors.description"
                             class="text-red-600 text-sm mt-1"
                         >
-                            {{ errors.description }}
+                            {{ form.errors.description }}
                         </p>
                     </div>
 
@@ -108,10 +92,10 @@ function submit() {
                             placeholder="Enter local specialty"
                         />
                         <p
-                            v-if="errors.local_specialty"
+                            v-if="form.errors.local_specialty"
                             class="text-red-600 text-sm mt-1"
                         >
-                            {{ errors.local_specialty }}
+                            {{ form.errors.local_specialty }}
                         </p>
                     </div>
 
@@ -130,10 +114,10 @@ function submit() {
                                 placeholder="Enter elite boss"
                             />
                             <p
-                                v-if="errors.elite_boss"
+                                v-if="form.errors.elite_boss"
                                 class="text-red-600 text-sm mt-1"
                             >
-                                {{ errors.elite_boss }}
+                                {{ form.errors.elite_boss }}
                             </p>
                         </div>
 
@@ -150,10 +134,10 @@ function submit() {
                                 placeholder="Enter world boss"
                             />
                             <p
-                                v-if="errors.world_boss"
+                                v-if="form.errors.world_boss"
                                 class="text-red-600 text-sm mt-1"
                             >
-                                {{ errors.world_boss }}
+                                {{ form.errors.world_boss }}
                             </p>
                         </div>
                     </div>
@@ -162,7 +146,7 @@ function submit() {
                     <div class="flex justify-end">
                         <button
                             type="submit"
-                            :disabled="disabled"
+                            :disabled="form.processing"
                             class="px-6 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Add Region

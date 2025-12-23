@@ -32,7 +32,11 @@ class ArtifactsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255|unique:artifacts,name',
+            'set_bonus' => 'required|string|max:500',
+            'rarity'=>'required|integer|in:3,4,5',
+        ]);
     }
 
     /**

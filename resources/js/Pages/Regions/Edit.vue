@@ -7,6 +7,7 @@ interface Region {
     name: string;
     description: string;
     local_specialty: string;
+    elite_boss: string;
     world_boss: string;
 }
 
@@ -46,7 +47,10 @@ function submit() {
                         type="text"
                         class="w-full border rounded px-3 py-2"
                     />
-                    <p v-if="form.errors.name" class="text-red-600 text-sm mt-1">
+                    <p
+                        v-if="form.errors.name"
+                        class="text-red-600 text-sm mt-1"
+                    >
                         {{ form.errors.name }}
                     </p>
                 </div>
@@ -58,24 +62,47 @@ function submit() {
                         v-model="form.description"
                         class="w-full border rounded px-3 py-2"
                     ></textarea>
-                    <p v-if="form.errors.description" class="text-red-600 text-sm mt-1">
+                    <p
+                        v-if="form.errors.description"
+                        class="text-red-600 text-sm mt-1"
+                    >
                         {{ form.errors.description }}
                     </p>
                 </div>
 
                 <!-- Local Specialty -->
                 <div class="mb-4">
-                    <label class="block font-medium mb-1">Local Specialty</label>
+                    <label class="block font-medium mb-1"
+                        >Local Specialty</label
+                    >
                     <input
                         v-model="form.local_specialty"
                         type="text"
                         class="w-full border rounded px-3 py-2"
                     />
-                    <p v-if="form.errors.local_specialty" class="text-red-600 text-sm mt-1">
+                    <p
+                        v-if="form.errors.local_specialty"
+                        class="text-red-600 text-sm mt-1"
+                    >
                         {{ form.errors.local_specialty }}
                     </p>
                 </div>
 
+                <!-- Elite Boss -->
+                <div class="mb-4">
+                    <label class="block font-medium mb-1">Elite Boss</label>
+                    <input
+                        v-model="form.elite_boss"
+                        type="text"
+                        class="w-full border rounded px-3 py-2"
+                    />
+                    <p
+                        v-if="form.errors.elite_boss"
+                        class="text-red-600 text-sm mt-1"
+                    >
+                        {{ form.errors.elite_boss }}
+                    </p>
+                </div>
                 <!-- World Boss -->
                 <div class="mb-4">
                     <label class="block font-medium mb-1">World Boss</label>
@@ -84,7 +111,10 @@ function submit() {
                         type="text"
                         class="w-full border rounded px-3 py-2"
                     />
-                    <p v-if="form.errors.world_boss" class="text-red-600 text-sm mt-1">
+                    <p
+                        v-if="form.errors.world_boss"
+                        class="text-red-600 text-sm mt-1"
+                    >
                         {{ form.errors.world_boss }}
                     </p>
                 </div>

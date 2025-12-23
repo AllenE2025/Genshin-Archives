@@ -29,7 +29,9 @@ const props = defineProps({
                     Home
                 </Link>
             </div>
-
+            <div v-if="artifacts.length === 0" class="text-gray-500">
+                No Artifacts found.
+            </div>
             <!-- Artifact List -->
             <ul class="space-y-4">
                 <li

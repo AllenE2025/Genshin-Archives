@@ -1,33 +1,29 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link, router } from "@inertiajs/vue3";
-import { ref } from "vue";
+import { Link, useForm } from "@inertiajs/vue3";
 
-const form = ref({
+const form = useForm({
     name: "",
     element: "",
     weapon_type: "",
     rarity: "",
     image: null,
 });
-const errors = ref({});
 
-const disabled = ref(false);
+const elementWithColors = {
+    Anemo: "text-green-400",
+    Geo: "text-yellow-600",
+    Electro: "text-purple-600",
+    Dendro: "text-green-600",
+    Hydro: "text-blue-600",
+    Pyro: "text-red-600",
+    Cryo: "text-blue-400",
+};
+
+const weaponTypes = ["Sword", "Claymore", "Polearm", "Bow", "Catalyst"];
 
 function submit() {
-    if (disabled.value) return; // prevent multiple clicks
-    disabled.value = true;
-
-    router.post(route("characters.store"), form.value, {
-        onSuccess: () => {
-            disabled.value = false;
-            router.visit(route("characters.index"));
-        },
-        onError: (err) => {
-            disabled.value = false;
-            errors.value = err;
-        },
-    });
+    form.post(route("characters.store"));
 }
 </script>
 
@@ -43,7 +39,7 @@ function submit() {
                     Go Back
                 </Link>
             </div>
-            <form>
+            <form @submit.prevent="submit" class="space-y-5">
                 <div class="mb-4">
                     <label class="block font-medium mb-1">Name</label>
                     <input
@@ -51,8 +47,11 @@ function submit() {
                         type="text"
                         class="w-full border rounded px-3 py-2"
                     />
-                    <p v-if="errors.name" class="text-red-600 text-sm mt-1">
-                        {{ errors.name }}
+                    <p
+                        v-if="form.errors.name"
+                        class="text-red-600 text-sm mt-1"
+                    >
+                        {{ form.errors.name }}
                     </p>
                 </div>
 
@@ -60,28 +59,23 @@ function submit() {
                     <label class="block font-medium mb-1">Element</label>
                     <div class="flex flex-col space-y-1">
                         <label
-                            v-for="el in [
-                                'Geo',
-                                'Anemo',
-                                'Pyro',
-                                'Hydro',
-                                'Cryo',
-                                'Electro',
-                                'Dendro',
-                            ]"
-                            :key="el"
+                            v-for="(color, element) in elementWithColors"
+                            :key="element"
                             class="flex items-center space-x-2"
                         >
                             <input
                                 type="radio"
-                                :value="el"
+                                :value="element"
                                 v-model="form.element"
                             />
-                            <span>{{ el }}</span>
+                            <span :class="color">{{ element }}</span>
                         </label>
                     </div>
-                    <p v-if="errors.element" class="text-red-600 text-sm mt-1">
-                        {{ errors.element }}
+                    <p
+                        v-if="form.errors.element"
+                        class="text-red-600 text-sm mt-1"
+                    >
+                        {{ form.errors.element }}
                     </p>
                 </div>
 
@@ -89,13 +83,7 @@ function submit() {
                     <label class="block font-medium mb-1">Weapon Type</label>
                     <div class="flex flex-col space-y-1">
                         <label
-                            v-for="wt in [
-                                'Polearm',
-                                'Sword',
-                                'Claymore',
-                                'Bow',
-                                'Catalyst',
-                            ]"
+                            v-for="wt in weaponTypes"
                             :key="wt"
                             class="flex items-center space-x-2"
                         >
@@ -108,10 +96,10 @@ function submit() {
                         </label>
                     </div>
                     <p
-                        v-if="errors.weapon_type"
+                        v-if="form.errors.weapon_type"
                         class="text-red-600 text-sm mt-1"
                     >
-                        {{ errors.weapon_type }}
+                        {{ form.errors.weapon_type }}
                     </p>
                 </div>
 
@@ -128,17 +116,27 @@ function submit() {
                                 :value="r"
                                 v-model="form.rarity"
                             />
-                            <span>{{ r }}★</span>
+                            <span
+                                :class="
+                                    r === 5
+                                        ? 'text-yellow-600'
+                                        : 'text-purple-600'
+                                "
+                                >{{ r }}★</span
+                            >
                         </label>
                     </div>
-                    <p v-if="errors.rarity" class="text-red-600 text-sm mt-1">
-                        {{ errors.rarity }}
+                    <p
+                        v-if="form.errors.rarity"
+                        class="text-red-600 text-sm mt-1"
+                    >
+                        {{ form.errors.rarity }}
                     </p>
                 </div>
 
                 <button
-                    @click="submit"
-                    :disabled="disabled"
+                    type="submit"
+                    :disabled="form.processing"
                     class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                     Add

@@ -16,6 +16,16 @@ const deleteCharacter = (id) => {
     }
 };
 
+const elementColors = {
+    Anemo: "text-green-400",
+    Geo: "text-yellow-600",
+    Electro: "text-purple-600",
+    Dendro: "text-green-600",
+    Hydro: "text-blue-600",
+    Pyro: "text-red-600",
+    Cryo: "text-blue-400",
+};
+
 const searchQuery = ref("");
 
 const filteredCharacters = computed(() => {
@@ -58,7 +68,7 @@ const filteredCharacters = computed(() => {
                 class="w-full p-2 border rounded mb-4"
             />
             <div v-if="characters.length === 0" class="text-gray-500">
-                Start by adding some characters!
+                No Characters found.
             </div>
 
             <ul v-if="filteredCharacters.length > 0" class="space-y-3">
@@ -80,7 +90,9 @@ const filteredCharacters = computed(() => {
                         <span class="block text-gray-500 text-sm font-medium"
                             >Element</span
                         >
-                        <span class="block">{{ character.element }}</span>
+                        <span :class="elementColors[character.element]">{{
+                            character.element
+                        }}</span>
                     </div>
 
                     <div>
@@ -94,7 +106,14 @@ const filteredCharacters = computed(() => {
                         <span class="block text-gray-500 text-sm font-medium"
                             >Rarity</span
                         >
-                        <span class="block">{{ character.rarity }}★</span>
+                        <span
+                            :class="
+                                character.rarity === 5
+                                    ? 'text-yellow-600'
+                                    : 'text-purple-600'
+                            "
+                            >{{ character.rarity }}★</span
+                        >
                     </div>
                     <div class="flex space-x-2">
                         <Link

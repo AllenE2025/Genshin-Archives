@@ -36,7 +36,9 @@ const deleteRegion = (id) => {
                     Home
                 </Link>
             </div>
-
+            <div v-if="regions.length === 0" class="text-gray-500">
+                No Regions found.
+            </div>
             <!-- Region List -->
             <ul class="space-y-4">
                 <li
@@ -51,7 +53,7 @@ const deleteRegion = (id) => {
                     <p class="text-gray-700 mb-3">{{ region.description }}</p>
 
                     <!-- Region Details Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm place-items-center">
                         <div>
                             <span class="block text-gray-500 font-medium"
                                 >Local Specialty</span

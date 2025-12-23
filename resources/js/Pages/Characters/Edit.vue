@@ -16,6 +16,17 @@ const form = useForm({
     ...props.character,
 });
 
+const elementWithColors = {
+    Anemo: "text-green-400",
+    Geo: "text-yellow-600",
+    Electro: "text-purple-600",
+    Dendro: "text-green-600",
+    Hydro: "text-blue-600",
+    Pyro: "text-red-600",
+    Cryo: "text-blue-400",
+};
+
+const weaponTypes = ["Sword", "Claymore", "Polearm", "Bow", "Catalyst"];
 function submit() {
     form.put(route("characters.update", form.id));
 }
@@ -56,24 +67,16 @@ function submit() {
                     <label class="block font-medium mb-1">Element</label>
                     <div class="flex flex-col space-y-1">
                         <label
-                            v-for="el in [
-                                'Anemo',
-                                'Geo',
-                                'Electro',
-                                'Dendro',
-                                'Hydro',
-                                'Pyro',
-                                'Cryo',
-                            ]"
-                            :key="el"
+                            v-for="(color, element) in elementWithColors"
+                            :key="element"
                             class="flex items-center space-x-2"
                         >
                             <input
                                 type="radio"
-                                :value="el"
+                                :value="element"
                                 v-model="form.element"
                             />
-                            <span>{{ el }}</span>
+                            <span :class="color">{{ element }}</span>
                         </label>
                     </div>
                     <p
@@ -89,13 +92,7 @@ function submit() {
                     <label class="block font-medium mb-1">Weapon Type</label>
                     <div class="flex flex-col space-y-1">
                         <label
-                            v-for="wt in [
-                                'Bow',
-                                'Catalyst',
-                                'Claymore',
-                                'Polearm',
-                                'Sword',
-                            ]"
+                            v-for="wt in weaponTypes"
                             :key="wt"
                             class="flex items-center space-x-2"
                         >
@@ -129,7 +126,14 @@ function submit() {
                                 :value="r"
                                 v-model="form.rarity"
                             />
-                            <span>{{ r }}★</span>
+                            <span
+                                :class="
+                                    r === 5
+                                        ? 'text-yellow-600'
+                                        : 'text-purple-600'
+                                "
+                                >{{ r }}★</span
+                            >
                         </label>
                     </div>
                     <p
