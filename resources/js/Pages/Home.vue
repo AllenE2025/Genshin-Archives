@@ -17,6 +17,8 @@ const elementColors = {
     Cryo: "text-blue-400",
 };
 
+const weaponTypes = ["Sword", "Claymore", " Polearm", "Bow", "Catalyst"];
+
 const searchQuery = ref("");
 
 const selectedFilter = ref("Alphabetical");
@@ -82,12 +84,106 @@ const filteredCharacters = computed(() => {
                     <option value="Weapon Type">Weapon Type</option>
                 </select>
 
-                <button @click="showFilterOptions = !showFilterOptions">{{ showFilterOptions}}</button>
+                <!-- Filter Button -->
+                <button
+                    @click="showFilterOptions = true"
+                    class="bg-white rounded-lg shadow py-2 px-4 hover:bg-gray-100 transition"
+                >
+                    Filter
+                </button>
 
-                <div v-if="showFilterOptions" class="fixed inset-0 bg-black/40 z-50">
-                       <button @click="showFilterOptions = !showFilterOptions" class="bg-white">Close</button>
+                <!-- Filter Modal -->
+                <div
+                    v-if="showFilterOptions"
+                    class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
+                >
+                    <div
+                        class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 relative"
+                    >
+                        <!-- Close Button -->
+                        <button
+                            @click="showFilterOptions = false"
+                            class="absolute top-3 right-3 text-gray-500 hover:text-black"
+                        >
+                            ✕
+                        </button>
+
+                        <!-- Title -->
+                        <h3 class="text-xl font-semibold mb-4 text-center">
+                            Filter Characters
+                        </h3>
+
+                        <!-- Element Filter -->
+                        <section class="space-y-3">
+                            <p class="font-medium text-gray-700">Element</p>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <label
+                                    class="flex items-center gap-2"
+                                    v-for="(color, element) in elementColors"
+                                    :key="element"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        class="rounded border-gray-300"
+                                    />
+                                    <span>{{ element }}</span>
+                                </label>
+                            </div>
+                        </section>
+
+                        <section class="space-y-3 py-3">
+                            <p class="font-medium text-gray-700">Weapon Type</p>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <label
+                                    class="flex items-center gap-2"
+                                    v-for="weapon_type in weaponTypes"
+                                    :key="weapon_type"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        class="rounded border-gray-300"
+                                    />
+                                    <span>{{ weapon_type }}</span>
+                                </label>
+                            </div>
+                        </section>
+
+                        <section class="space-y-3 py-3">
+                            <p class="font-medium text-gray-700">Rarity</p>
+
+                            <div class="grid grid-cols-2 gap-2">
+                                <label
+                                    class="flex items-center gap-2"
+                                    v-for="r in [4, 5]"
+                                >
+                                    <input
+                                        type="checkbox"
+                                        class="rounded border-gray-300"
+                                    />
+                                    <span>{{ r }}★</span>
+                                </label>
+                            </div>
+                        </section>
+
+                        <!-- Action Buttons -->
+                        <div class="mt-6 flex justify-end gap-2">
+                            <button
+                                @click="showFilterOptions = false"
+                                class="px-4 py-2 rounded border"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                            >
+                                Apply
+                            </button>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
 
             <div class="flex gap-16 justify-center flex-wrap">
