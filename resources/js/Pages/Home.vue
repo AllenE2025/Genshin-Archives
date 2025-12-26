@@ -7,6 +7,8 @@ const props = defineProps({
     regions: Array,
 });
 
+/* ------------------ Constants ------------------ */
+
 const elementColors = {
     Anemo: "text-green-400",
     Geo: "text-yellow-600",
@@ -17,40 +19,56 @@ const elementColors = {
     Cryo: "text-blue-400",
 };
 
-const weaponTypes = ["Sword", "Claymore", " Polearm", "Bow", "Catalyst"];
+const weaponTypes = ["Sword", "Claymore", "Polearm", "Bow", "Catalyst"];
+
+const rarityOptions = { 4: "text-purple-600", 5: "text-yellow-600" };
+
+/* ------------------ UI State ------------------ */
 
 const searchQuery = ref("");
-
-const selectedFilter = ref("Alphabetical");
-
 const showFilterOptions = ref(false);
 
-const searchedCharacters = computed(() => {
-    if (!searchQuery.value) return props.characters;
+/* ------------------ Filter State ------------------ */
 
-    return props.characters.filter((character) =>
-        character.name.toLowerCase().includes(searchQuery.value.toLowerCase())
-    );
-});
+const selectedElements = ref([]);
+const selectedWeapons = ref([]);
+const selectedRarities = ref([]);
+
+/* ------------------ Computed ------------------ */
 
 const filteredCharacters = computed(() => {
-    const result = [...searchedCharacters.value];
+    return props.characters.filter((character) => {
+        const matchesSearch =
+            !searchQuery.value ||
+            character.name
+                .toLowerCase()
+                .includes(searchQuery.value.toLowerCase());
 
-    switch (selectedFilter.value) {
-        case "Alphabetical":
-            return result.sort((a, b) => a.name.localeCompare(b.name));
-        case "Rarity":
-            return result.sort((a, b) => b.rarity - a.rarity);
-        case "Element":
-            return result.sort((a, b) => a.element.localeCompare(b.element));
-        case "Weapon Type":
-            return result.sort((a, b) =>
-                a.weapon_type.localeCompare(b.weapon_type)
-            );
-        default:
-            return result;
-    }
+        const matchesElement =
+            selectedElements.value.length === 0 ||
+            selectedElements.value.includes(character.element);
+
+        const matchesWeapon =
+            selectedWeapons.value.length === 0 ||
+            selectedWeapons.value.includes(character.weapon_type);
+
+        const matchesRarity =
+            selectedRarities.value.length === 0 ||
+            selectedRarities.value.includes(character.rarity);
+
+        return (
+            matchesSearch && matchesElement && matchesWeapon && matchesRarity
+        );
+    });
 });
+
+/* ------------------ Methods ------------------ */
+
+const resetFilter = () => {
+    selectedElements.value = [];
+    selectedWeapons.value = [];
+    selectedRarities.value = [];
+};
 </script>
 
 <template>
@@ -73,21 +91,10 @@ const filteredCharacters = computed(() => {
                     class="flex-1 min-w-[220px] md:max-w-md p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 />
 
-                <!-- Filter Dropdown -->
-                <select
-                    v-model="selectedFilter"
-                    class="w-full md:w-36 p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                >
-                    <option value="Alphabetical">Alphabetical</option>
-                    <option value="Rarity">Rarity</option>
-                    <option value="Element">Element</option>
-                    <option value="Weapon Type">Weapon Type</option>
-                </select>
-
                 <!-- Filter Button -->
                 <button
                     @click="showFilterOptions = true"
-                    class="bg-white rounded-lg shadow py-2 px-4 hover:bg-gray-100 transition"
+                    class="bg-white rounded-lg shadow-sm border border-gray-300 py-2 px-4 hover:bg-gray-100 transition"
                 >
                     Filter
                 </button>
@@ -100,14 +107,6 @@ const filteredCharacters = computed(() => {
                     <div
                         class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 relative"
                     >
-                        <!-- Close Button -->
-                        <button
-                            @click="showFilterOptions = false"
-                            class="absolute top-3 right-3 text-gray-500 hover:text-black"
-                        >
-                            ✕
-                        </button>
-
                         <!-- Title -->
                         <h3 class="text-xl font-semibold mb-4 text-center">
                             Filter Characters
@@ -125,9 +124,11 @@ const filteredCharacters = computed(() => {
                                 >
                                     <input
                                         type="checkbox"
+                                        :value="element"
+                                        v-model="selectedElements"
                                         class="rounded border-gray-300"
                                     />
-                                    <span>{{ element }}</span>
+                                    <span :class="color">{{ element }}</span>
                                 </label>
                             </div>
                         </section>
@@ -143,6 +144,8 @@ const filteredCharacters = computed(() => {
                                 >
                                     <input
                                         type="checkbox"
+                                        :value="weapon_type"
+                                        v-model="selectedWeapons"
                                         class="rounded border-gray-300"
                                     />
                                     <span>{{ weapon_type }}</span>
@@ -156,13 +159,16 @@ const filteredCharacters = computed(() => {
                             <div class="grid grid-cols-2 gap-2">
                                 <label
                                     class="flex items-center gap-2"
-                                    v-for="r in [4, 5]"
+                                    v-for="(color, r) in rarityOptions"
+                                    :key="r"
                                 >
                                     <input
                                         type="checkbox"
+                                        :value="r"
+                                        v-model="selectedRarities"
                                         class="rounded border-gray-300"
                                     />
-                                    <span>{{ r }}★</span>
+                                    <span :class="color">{{ r }}★</span>
                                 </label>
                             </div>
                         </section>
@@ -170,16 +176,17 @@ const filteredCharacters = computed(() => {
                         <!-- Action Buttons -->
                         <div class="mt-6 flex justify-end gap-2">
                             <button
-                                @click="showFilterOptions = false"
+                                @click="resetFilter"
                                 class="px-4 py-2 rounded border"
                             >
-                                Cancel
+                                Clear
                             </button>
 
                             <button
+                                @click="showFilterOptions = false"
                                 class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                             >
-                                Apply
+                                Done
                             </button>
                         </div>
                     </div>
