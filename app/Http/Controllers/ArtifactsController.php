@@ -34,9 +34,14 @@ class ArtifactsController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:artifacts,name',
+            'piece' => 'required|string|max:255',
             'set_bonus' => 'required|string|max:500',
             'rarity'=>'required|integer|in:3,4,5',
         ]);
+
+        Artifacts::create($validated);
+
+        return redirect()->route('artifacts.index');
     }
 
     /**

@@ -10,11 +10,13 @@ import NavBar from "@/Components/NavBar.vue";
         <NavBar />
 
         <!-- Page content -->
-        <main class="flex-1 p-4">
+        <main class="flex-1 p-4 pt-32">
             <slot />
         </main>
 
         <!-- Footer -->
-        <footer class="text-purple-800 text-center p-2 bg-white">2025</footer>
+        <footer class="text-purple-800 text-center p-2 bg-white">
+            &copy; 2025
+        </footer>
     </div>
 </template>

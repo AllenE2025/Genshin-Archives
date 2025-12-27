@@ -3,10 +3,10 @@ import { Link } from "@inertiajs/vue3";
 </script>
 
 <template>
-    <div class="w-full items-center flex justify-evenly p-4 bg-green">
-        <Link
-        :href="route('home')"
-        class="hover:bg-blue-200 p-2 rounded-lg">
+    <div
+        class="w-full items-center flex justify-evenly p-2 fixed z-50 bg-blue-100 shadow"
+    >
+        <Link :href="route('home')" class="hover:bg-blue-200 p-2 rounded-lg">
             <img src="/genshinlogo.png" alt="Genshin Logo" />
         </Link>
         <Link
