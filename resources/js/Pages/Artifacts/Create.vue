@@ -4,8 +4,8 @@ import { Link, useForm } from "@inertiajs/vue3";
 
 const form = useForm({
     name: "",
-    piece: "",
-    set_bonus: "",
+    two_piece_bonus: "",
+    four_piece_bonus: "",
     rarity: null,
 });
 
@@ -25,9 +25,7 @@ const submit = () => {
         <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded-xl shadow-md">
             <!-- Header -->
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold text-gray-800">
-                    Create Artifact
-                </h1>
+                <h1 class="text-2xl font-bold text-gray-800">Add Artifact</h1>
 
                 <Link
                     :href="route('artifacts.index')"
@@ -57,39 +55,39 @@ const submit = () => {
                     </p>
                 </div>
 
-                <!-- Piece -->
+                <!-- 2 Piece -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">
-                        Piece
+                        Two Piece Bonus
                     </label>
                     <input
-                        v-model="form.piece"
+                        v-model="form.two_piece_bonus"
                         type="text"
                         class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     />
                     <p
-                        v-if="form.errors.piece"
+                        v-if="form.errors.two_piece_bonus"
                         class="text-sm text-red-600 mt-1"
                     >
-                        {{ form.errors.piece }}
+                        {{ form.errors.two_piece_bonus }}
                     </p>
                 </div>
 
-                <!-- Set Bonus -->
+                <!-- Four Piece -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">
-                        Set Bonus
+                        Four Piece Bonus
                     </label>
                     <input
-                        v-model="form.set_bonus"
+                        v-model="form.four_piece_bonus"
                         type="text"
                         class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                     />
                     <p
-                        v-if="form.errors.set_bonus"
+                        v-if="form.errors.four_piece_bonus"
                         class="text-sm text-red-600 mt-1"
                     >
-                        {{ form.errors.set_bonus }}
+                        {{ form.errors.four_piece_bonus }}
                     </p>
                 </div>
 
@@ -129,7 +127,7 @@ const submit = () => {
                     :disabled="form.processing"
                     class="w-full mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {{ form.processing ? "Creating..." : "Create Artifact" }}
+                    {{ form.processing ? "Adding..." : "Add Artifact" }}
                 </button>
             </form>
         </div>

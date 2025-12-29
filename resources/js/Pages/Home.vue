@@ -5,6 +5,7 @@ import { computed, ref } from "vue";
 const props = defineProps({
     characters: Array,
     regions: Array,
+    artifacts: Array,
 });
 
 /* ------------------ Constants ------------------ */
@@ -90,6 +91,14 @@ const resetFilter = () => {
                     placeholder="Search characters..."
                     class="flex-1 min-w-[220px] md:max-w-md p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
                 />
+
+                <button
+                    v-if="searchQuery.length"
+                    @click="searchQuery = ''"
+                    class="bg-white rounded-lg shadow-sm border border-gray-300 py-2 px-4 hover:bg-gray-100 transition"
+                >
+                    Clear
+                </button>
 
                 <!-- Filter Button -->
                 <button
@@ -326,6 +335,48 @@ const resetFilter = () => {
                                     World Boss
                                 </span>
                                 <span>{{ region.world_boss }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="mb-16 w-full max-w-3xl">
+                    <h2 class="text-2xl font-semibold mb-4 text-center">
+                        Artifacts
+                    </h2>
+                    <ul class="space-y-4">
+                        <li
+                            v-for="artifact in artifacts"
+                            :key="artifact.id"
+                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center"
+                        >
+                            <div>
+                                <span>Name</span>
+                                <span>{{ artifact.name }}</span>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-gray-500 text-sm font-medium"
+                                    >Two Piece Bonus</span
+                                >
+                                <span>{{ artifact.two_piece_bonus }}</span>
+                            </div>
+                            <div>
+                                <span
+                                    class="block text-gray-500 text-sm font-medium"
+                                    >Four Piece Bonus</span
+                                >
+                                <span>
+                                    {{ artifact.four_piece_bonus }}
+                                </span>
+                            </div>
+
+                            <div>
+                                <span
+                                    class="block text-gray-500 text-sm font-medium"
+                                    >Rarity</span
+                                >
+                                <span>{{ artifact.rarity }}</span>
                             </div>
                         </li>
                     </ul>

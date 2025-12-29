@@ -9,8 +9,8 @@ class Artifacts extends Model
     protected $table = 'artifacts';
     protected $fillable = [
         'name',
-        'piece',
-        'set_bonus',
+        'two_piece_bonus',
+        'four_piece_bonus',
         'rarity',
     ];
 }

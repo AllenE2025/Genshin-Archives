@@ -1,69 +1,90 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link, router } from "@inertiajs/vue3";
-import { computed, ref } from "vue";
+import { Link } from "@inertiajs/vue3";
+
 const props = defineProps({
     artifacts: Array,
 });
 </script>
+
 <template>
     <AppLayout>
-        <div class="max-w-3xl mx-auto mt-10 p-4">
+        <div class="max-w-3xl mx-auto mt-10 px-4">
             <!-- Header -->
-            <div class="text-center mb-6">
-                <h1 class="text-4xl font-bold mb-2">Artifacts</h1>
+            <div class="text-center mb-8">
+                <h1 class="text-4xl font-bold text-gray-800">Artifacts</h1>
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex justify-end mb-6 space-x-4">
+            <div class="flex justify-end gap-3 mb-6">
                 <Link
                     :href="route('artifacts.create')"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
                 >
                     Add New Artifact
                 </Link>
+
                 <Link
                     :href="route('home')"
-                    class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
+                    class="px-4 py-2 bg-gray-500 text-white rounded-lg shadow hover:bg-gray-600 transition"
                 >
                     Home
                 </Link>
             </div>
-            <div v-if="artifacts.length === 0" class="text-gray-500">
-                No Artifacts found.
+
+            <!-- Empty State -->
+            <div
+                v-if="artifacts.length === 0"
+                class="text-center text-gray-500 py-10"
+            >
+                No artifacts found.
             </div>
+
             <!-- Artifact List -->
-            <ul class="space-y-4">
+            <ul class="space-y-5">
                 <li
                     v-for="artifact in artifacts"
                     :key="artifact.id"
-                    class="p-5 bg-white rounded-lg shadow"
+                    class="p-6 bg-white rounded-xl shadow-sm border"
                 >
-                    <!-- Artifact Info -->
-                    <h2 class="text-2xl font-semibold mb-2">
+                    <!-- Artifact Name -->
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4">
                         {{ artifact.name }}
                     </h2>
-                    <p class="text-gray-700 mb-3">{{ artifact.description }}</p>
 
-                    <!-- Artifact Details Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
-                        <div>
-                            <span class="block text -gray-500 font-medium"
-                                >Set Bonus</span
-                            >
-                            <span>{{ artifact.set_bonus }}</span>
+                    <!-- Artifact Details -->
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm text-gray-700"
+                    >
+                        <!-- Set Bonuses -->
+                        <div class="sm:col-span-2 space-y-2">
+                            <span class="block text-gray-500 font-medium">
+                                Set Bonus
+                            </span>
+
+                            <div>
+                                <p class="font-semibold">2-Piece Bonus</p>
+                                <p class="text-gray-600">
+                                    {{ artifact.two_piece_bonus }}
+                                </p>
+                            </div>
+
+                            <div>
+                                <p class="font-semibold">4-Piece Bonus</p>
+                                <p class="text-gray-600">
+                                    {{ artifact.four_piece_bonus }}
+                                </p>
+                            </div>
                         </div>
+
+                        <!-- Rarity -->
                         <div>
-                            <span class="block text-gray-500 font-medium"
-                                >Main Stat</span
-                            >
-                            <span>{{ artifact.main_stat }}</span>
-                        </div>
-                        <div>
-                            <span class="block text-gray-500 font-medium"
-                                >Sub Stats</span
-                            >
-                            <span>{{ artifact.sub_stats }}</span>
+                            <span class="block text-gray-500 font-medium">
+                                Rarity
+                            </span>
+                            <p class="text-lg font-semibold">
+                                {{ artifact.rarity }} ★
+                            </p>
                         </div>
                     </div>
                 </li>

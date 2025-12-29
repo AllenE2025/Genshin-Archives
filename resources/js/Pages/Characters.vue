@@ -68,10 +68,10 @@ const filteredCharacters = computed(() => {
                 class="w-full p-2 border rounded mb-4"
             />
             <div v-if="characters.length === 0" class="text-gray-500">
-                No Characters found.
+                Start adding characters.
             </div>
 
-            <ul v-if="filteredCharacters.length > 0" class="space-y-3">
+            <ul v-else-if="filteredCharacters.length > 0" class="space-y-3">
                 <li
                     v-for="character in filteredCharacters"
                     :key="character.id"

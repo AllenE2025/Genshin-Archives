@@ -34,8 +34,8 @@ class ArtifactsController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255|unique:artifacts,name',
-            'piece' => 'required|string|max:255',
-            'set_bonus' => 'required|string|max:500',
+            'two_piece_bonus' => 'required|string|max:255',
+            'four_piece_bonus' => 'required|string|max:255',
             'rarity'=>'required|integer|in:3,4,5',
         ]);
 

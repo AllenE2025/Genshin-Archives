@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('artifacts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('piece');
-            $table->text('set_bonus');
+            $table->text('two_piece_bonus');
+            $table->text('four_piece_bonus');
             $table->integer('rarity');
             $table->timestamps();
         });
