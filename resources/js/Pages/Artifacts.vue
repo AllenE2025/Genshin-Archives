@@ -1,38 +1,41 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 
 const props = defineProps({
     artifacts: Array,
 });
+
+const deleteArtifact = (artifact) => {
+    if (confirm(`Are you sure you want to delete ${artifact.name}?`)) {
+        router.delete(route("artifacts.destroy", artifact.id));
+    }
+};
 </script>
 
 <template>
     <AppLayout>
-        <div class="max-w-3xl mx-auto mt-10 px-4">
+        <div class="max-w-3xl mx-auto mt-10 p-4">
             <!-- Header -->
-            <div class="text-center mb-8">
-                <h1 class="text-4xl font-bold text-gray-800">Artifacts</h1>
+            <div class="text-center mb-6">
+                <h1 class="text-4xl font-bold mb-2">Artifacts</h1>
             </div>
 
             <!-- Action Buttons -->
-            <div class="flex justify-end gap-3 mb-6">
+            <div class="flex justify-end mb-6 space-x-4">
                 <Link
                     :href="route('artifacts.create')"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition-all duration-300"
                 >
                     Add New Artifact
                 </Link>
-
                 <Link
                     :href="route('home')"
-                    class="px-4 py-2 bg-gray-500 text-white rounded-lg shadow hover:bg-gray-600 transition"
+                    class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
                 >
                     Home
                 </Link>
             </div>
-
-            <!-- Empty State -->
             <div
                 v-if="artifacts.length === 0"
                 class="text-center text-gray-500 py-10"
@@ -82,10 +85,32 @@ const props = defineProps({
                             <span class="block text-gray-500 font-medium">
                                 Rarity
                             </span>
-                            <p class="text-lg font-semibold">
+                            <span
+                                :class="{
+                                    'text-blue-600': artifact.rarity === 3,
+                                    'text-purple-600': artifact.rarity === 4,
+                                    'text-yellow-600': artifact.rarity === 5,
+                                }"
+                            >
                                 {{ artifact.rarity }} ★
-                            </p>
+                            </span>
                         </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="mt-4 flex space-x-2">
+                        <Link
+                            :href="route('artifacts.edit', artifact.id)"
+                            class="px-3 py-1 text-yellow-600 hover:bg-yellow-100 rounded-lg hover:scale-105 transition-transform"
+                        >
+                            Edit
+                        </Link>
+                        <button
+                            @click="deleteArtifact(artifact)"
+                            class="px-3 py-1 text-red-600 hover:bg-red-100 rounded-lg hover:scale-105 transition-transform"
+                        >
+                            Delete
+                        </button>
                     </div>
                 </li>
             </ul>

@@ -27,6 +27,7 @@ const elementWithColors = {
 };
 
 const weaponTypes = ["Sword", "Claymore", "Polearm", "Bow", "Catalyst"];
+
 function submit() {
     form.put(route("characters.update", form.id));
 }
@@ -35,17 +36,16 @@ function submit() {
 <template>
     <AppLayout>
         <div class="max-w-md mx-auto mt-10 p-6 bg-white rounded shadow">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">Edit Character</h1>
+                <Link
+                    :href="route('characters.index')"
+                    class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
+                >
+                    Go Back
+                </Link>
+            </div>
             <form @submit.prevent="submit">
-                <div class="flex justify-between items-center mb-6">
-                    <h1 class="text-2xl font-bold">Edit Character</h1>
-                    <Link
-                        :href="route('characters.index')"
-                        class="px-4 py-2 bg-gray-400 text-white rounded shadow hover:bg-gray-500"
-                    >
-                        Go Back
-                    </Link>
-                </div>
-
                 <!-- Name -->
                 <div class="mb-4">
                     <label class="block font-medium mb-1">Name</label>

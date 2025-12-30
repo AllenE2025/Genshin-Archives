@@ -6,9 +6,9 @@ const props = defineProps({
     regions: Array,
 });
 
-const deleteRegion = (id) => {
-    if (confirm("Are you sure you want to delete this region?")) {
-        router.delete(route("regions.destroy", id));
+const deleteRegion = (region) => {
+    if (confirm(`Are you sure you want to delete ${region.name}?`)) {
+        router.delete(route("regions.destroy", region.id));
     }
 };
 </script>
@@ -53,7 +53,9 @@ const deleteRegion = (id) => {
                     <p class="text-gray-700 mb-3">{{ region.description }}</p>
 
                     <!-- Region Details Grid -->
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm place-items-center">
+                    <div
+                        class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm place-items-center"
+                    >
                         <div>
                             <span class="block text-gray-500 font-medium"
                                 >Local Specialty</span
@@ -83,7 +85,7 @@ const deleteRegion = (id) => {
                             Edit
                         </Link>
                         <button
-                            @click="deleteRegion(region.id)"
+                            @click="deleteRegion(region)"
                             class="px-3 py-1 text-red-600 hover:bg-red-100 rounded-lg hover:scale-105 transition-transform"
                         >
                             Delete

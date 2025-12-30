@@ -9,10 +9,10 @@ const props = defineProps({
 });
 
 // Methods
-const deleteCharacter = (id) => {
-    if (confirm("Are you sure you want to delete this character?")) {
+const deleteCharacter = (character) => {
+    if (confirm(`Are you sure you want to delete ${character.name}?`)) {
         // Call Inertia to send DELETE request to your Laravel route
-        router.delete(route("characters.destroy", id));
+        router.delete(route("characters.destroy", character.id));
     }
 };
 
@@ -123,7 +123,7 @@ const filteredCharacters = computed(() => {
                             Edit
                         </Link>
                         <button
-                            @click="deleteCharacter(character.id)"
+                            @click="deleteCharacter(character)"
                             class="px-3 py-1 text-red-600 hover:bg-red-100 rounded-lg hover:scale-105 transition-transform"
                         >
                             Delete

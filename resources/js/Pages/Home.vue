@@ -173,7 +173,7 @@ const resetFilter = () => {
                                 >
                                     <input
                                         type="checkbox"
-                                        :value="r"
+                                        :value="Number(r)"
                                         v-model="selectedRarities"
                                         class="rounded border-gray-300"
                                     />
@@ -351,7 +351,10 @@ const resetFilter = () => {
                             class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center"
                         >
                             <div>
-                                <span>Name</span>
+                                <span
+                                    class="block text-gray-500 text-sm font-medium"
+                                    >Name</span
+                                >
                                 <span>{{ artifact.name }}</span>
                             </div>
                             <div>

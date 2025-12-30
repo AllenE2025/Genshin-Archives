@@ -67,9 +67,18 @@ class ArtifactsController extends Controller
      */
     public function update(Request $request, Artifacts $artifact)
     {
-        //
-    }
+         $validated=$request->validate([
+            'name'=>['required','string', Rule::unique('artifacts')->ignore($artifact->id)],
+            'two_piece_bonus'=>'required|string',
+            'four_piece_bonus'=>'required|string',
+            'rarity'=>'required|integer|in:3,4,5',
+        ]);
 
+        $artifact->update($validated);
+
+        return redirect()->route('artifacts.index');
+    }
+    
     /**
      * Remove the specified resource from storage.
      */
