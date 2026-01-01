@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CharactersController;
+use App\Http\Controllers\WeaponsController;
 use App\Http\Controllers\RegionsController;
 use App\Http\Controllers\ArtifactsController;
 use App\Models\Characters;
+use App\Models\Weapons;
 use App\Models\Regions;
 use App\Models\Artifacts;
 use Illuminate\Foundation\Application;
@@ -28,4 +30,5 @@ Route::resource('regions', RegionsController::class);
 
 Route::resource('artifacts', ArtifactsController::class);
 
+Route::resource('weapons', WeaponsController::class);
 require __DIR__.'/auth.php';

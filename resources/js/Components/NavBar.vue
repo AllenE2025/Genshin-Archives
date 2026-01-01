@@ -17,6 +17,13 @@ import { Link } from "@inertiajs/vue3";
         </Link>
 
         <Link
+            :href="route('weapons.index')"
+            class="px-4 py-2 text-purple-800 rounded-lg hover:bg-blue-200 hover:scale-105 transition-transform"
+        >
+            Weapons
+        </Link>
+
+        <Link
             :href="route('artifacts.index')"
             class="px-4 py-2 text-purple-800 rounded-lg hover:bg-blue-200 hover:scale-105 transition-transform"
         >
