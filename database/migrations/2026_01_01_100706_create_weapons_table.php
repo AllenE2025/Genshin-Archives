@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('weapons', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('weapon_type');
+            $table->integer('base_attack');
+            $table->integer('sub_stat');
+            $table->integer('rarity');
+            $table->text('passive');
             $table->timestamps();
         });
     }

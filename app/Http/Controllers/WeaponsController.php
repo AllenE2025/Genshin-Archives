@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Weapons;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class WeaponsController extends Controller
 {
@@ -12,7 +13,7 @@ class WeaponsController extends Controller
      */
     public function index()
     {
-        return inertia('Weapons');
+        return inertia('Weapons', ['weapons' => Weapons::all()]);
     }
 
     /**
@@ -20,7 +21,7 @@ class WeaponsController extends Controller
      */
     public function create()
     {
-        //
+        return inertia('Weapons/Create');
     }
 
     /**
@@ -28,7 +29,18 @@ class WeaponsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|unique:weapons,name',
+            'weapon_type' => 'nullable|string',
+            'base_attack' => 'nullable|integer',
+            'sub_stat' => 'nullable|integer',
+            'rarity' => 'nullable|integer|in:3,4,5',
+            'passive' => 'nullable|string',
+        ]);
+
+        Weapons::create($validated);
+
+        return redirect()->route('weapons.index');
     }
 
     /**
