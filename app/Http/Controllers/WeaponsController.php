@@ -31,11 +31,12 @@ class WeaponsController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|unique:weapons,name',
-            'weapon_type' => 'nullable|string',
-            'base_attack' => 'nullable|integer',
-            'sub_stat' => 'nullable|integer',
-            'rarity' => 'nullable|integer|in:3,4,5',
-            'passive' => 'nullable|string',
+            'weapon_type' => 'required|string',
+            'base_attack' => 'required|integer',
+            'sub_stat_type' => 'required|string',
+            'sub_stat' => 'required|integer',
+            'rarity' => 'required|integer|in:3,4,5',
+            'passive' => 'required|string',
         ]);
 
         Weapons::create($validated);
@@ -54,7 +55,7 @@ class WeaponsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Weapons $weapons)
+    public function edit(Weapons $weapon)
     {
         //
     }
@@ -62,7 +63,7 @@ class WeaponsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Weapons $weapons)
+    public function update(Request $request, Weapons $weapon)
     {
         //
     }
@@ -70,8 +71,10 @@ class WeaponsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Weapons $weapons)
+    public function destroy(Weapons $weapon)
     {
-        //
+        $weapon->delete();
+
+        return redirect()->route('weapons.index');
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('weapon_type');
             $table->integer('base_attack');
+            $table->string('sub_stat_type');
             $table->integer('sub_stat');
             $table->integer('rarity');
             $table->text('passive');
