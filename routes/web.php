@@ -17,10 +17,12 @@ Route::get('/', function () {
     $characters = Characters::all();
     $regions = Regions::all();
     $artifacts = Artifacts::all();
+    $weapons = Weapons::all();
     return Inertia::render('Home',[
         'characters' => $characters,
         'regions' => $regions,
         'artifacts' => $artifacts,
+        'weapons' => $weapons,
     ]);
 })->name('home');
 

@@ -6,6 +6,7 @@ const props = defineProps({
     characters: Array,
     regions: Array,
     artifacts: Array,
+    weapons: Array,
 });
 
 /* ------------------ Constants ------------------ */
@@ -81,41 +82,25 @@ const resetFilter = () => {
             <p class="text-center text-gray-600 mb-8">
                 Welcome to the Genshin Archives page!
             </p>
-            <div
-                class="flex flex-col md:flex-row md:items-center md:justify-center gap-4 mb-6 flex-wrap"
-            >
+            <div class="flex flex-col md:flex-row md:items-center md:justify-center gap-4 mb-6 flex-wrap">
                 <!-- Search -->
-                <input
-                    v-model="searchQuery"
-                    type="text"
-                    placeholder="Search characters..."
-                    class="flex-1 min-w-[220px] md:max-w-md p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                />
+                <input v-model="searchQuery" type="text" placeholder="Search characters..."
+                    class="flex-1 min-w-[220px] md:max-w-md p-2 border border-gray-300 rounded shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" />
 
-                <button
-                    v-if="searchQuery.length"
-                    @click="searchQuery = ''"
-                    class="bg-white rounded-lg shadow-sm border border-gray-300 py-2 px-4 hover:bg-gray-100 transition"
-                >
+                <button v-if="searchQuery.length" @click="searchQuery = ''"
+                    class="bg-white rounded-lg shadow-sm border border-gray-300 py-2 px-4 hover:bg-gray-100 transition">
                     Clear
                 </button>
 
                 <!-- Filter Button -->
-                <button
-                    @click="showFilterOptions = true"
-                    class="bg-white rounded-lg shadow-sm border border-gray-300 py-2 px-4 hover:bg-gray-100 transition"
-                >
+                <button @click="showFilterOptions = true"
+                    class="bg-white rounded-lg shadow-sm border border-gray-300 py-2 px-4 hover:bg-gray-100 transition">
                     Filter
                 </button>
 
                 <!-- Filter Modal -->
-                <div
-                    v-if="showFilterOptions"
-                    class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
-                >
-                    <div
-                        class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 relative"
-                    >
+                <div v-if="showFilterOptions" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
+                    <div class="bg-white w-full max-w-md rounded-xl shadow-lg p-6 relative">
                         <!-- Title -->
                         <h3 class="text-xl font-semibold mb-4 text-center">
                             Filter Characters
@@ -126,17 +111,10 @@ const resetFilter = () => {
                             <p class="font-medium text-gray-700">Element</p>
 
                             <div class="grid grid-cols-2 gap-2">
-                                <label
-                                    class="flex items-center gap-2"
-                                    v-for="(color, element) in elementColors"
-                                    :key="element"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        :value="element"
-                                        v-model="selectedElements"
-                                        class="rounded border-gray-300"
-                                    />
+                                <label class="flex items-center gap-2" v-for="(color, element) in elementColors"
+                                    :key="element">
+                                    <input type="checkbox" :value="element" v-model="selectedElements"
+                                        class="rounded border-gray-300" />
                                     <span :class="color">{{ element }}</span>
                                 </label>
                             </div>
@@ -146,17 +124,10 @@ const resetFilter = () => {
                             <p class="font-medium text-gray-700">Weapon Type</p>
 
                             <div class="grid grid-cols-2 gap-2">
-                                <label
-                                    class="flex items-center gap-2"
-                                    v-for="weapon_type in weaponTypes"
-                                    :key="weapon_type"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        :value="weapon_type"
-                                        v-model="selectedWeapons"
-                                        class="rounded border-gray-300"
-                                    />
+                                <label class="flex items-center gap-2" v-for="weapon_type in weaponTypes"
+                                    :key="weapon_type">
+                                    <input type="checkbox" :value="weapon_type" v-model="selectedWeapons"
+                                        class="rounded border-gray-300" />
                                     <span>{{ weapon_type }}</span>
                                 </label>
                             </div>
@@ -166,17 +137,9 @@ const resetFilter = () => {
                             <p class="font-medium text-gray-700">Rarity</p>
 
                             <div class="grid grid-cols-2 gap-2">
-                                <label
-                                    class="flex items-center gap-2"
-                                    v-for="(color, r) in rarityOptions"
-                                    :key="r"
-                                >
-                                    <input
-                                        type="checkbox"
-                                        :value="Number(r)"
-                                        v-model="selectedRarities"
-                                        class="rounded border-gray-300"
-                                    />
+                                <label class="flex items-center gap-2" v-for="(color, r) in rarityOptions" :key="r">
+                                    <input type="checkbox" :value="Number(r)" v-model="selectedRarities"
+                                        class="rounded border-gray-300" />
                                     <span :class="color">{{ r }}★</span>
                                 </label>
                             </div>
@@ -184,17 +147,12 @@ const resetFilter = () => {
 
                         <!-- Action Buttons -->
                         <div class="mt-6 flex justify-end gap-2">
-                            <button
-                                @click="resetFilter"
-                                class="px-4 py-2 rounded border"
-                            >
+                            <button @click="resetFilter" class="px-4 py-2 rounded border">
                                 Clear
                             </button>
 
-                            <button
-                                @click="showFilterOptions = false"
-                                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                            >
+                            <button @click="showFilterOptions = false"
+                                class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
                                 Done
                             </button>
                         </div>
@@ -209,26 +167,15 @@ const resetFilter = () => {
                         Characters
                     </h2>
 
-                    <div
-                        v-if="characters.length === 0"
-                        class="text-center text-gray-500"
-                    >
+                    <div v-if="characters.length === 0" class="text-center text-gray-500">
                         Add some characters to see them listed here.
                     </div>
 
-                    <ul
-                        v-else-if="filteredCharacters.length > 0"
-                        class="space-y-4"
-                    >
-                        <li
-                            v-for="character in filteredCharacters"
-                            :key="character.id"
-                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow flex flex-wrap gap-6 justify-evenly items-center"
-                        >
+                    <ul v-else-if="filteredCharacters.length > 0" class="space-y-4">
+                        <li v-for="character in filteredCharacters" :key="character.id"
+                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow flex flex-wrap gap-6 justify-evenly items-center">
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Name
                                 </span>
                                 <span class="block text-lg font-semibold">
@@ -237,40 +184,27 @@ const resetFilter = () => {
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Element
                                 </span>
-                                <span
-                                    :class="elementColors[character.element]"
-                                    >{{ character.element }}</span
-                                >
+                                <span :class="elementColors[character.element]">{{ character.element }}</span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Weapon
                                 </span>
                                 <span>{{ character.weapon_type }}</span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Rarity
                                 </span>
-                                <span
-                                    :class="
-                                        character.rarity === 5
-                                            ? 'text-yellow-600'
-                                            : 'text-purple-600'
-                                    "
-                                    >{{ character.rarity }}★</span
-                                >
+                                <span :class="character.rarity === 5
+                                    ? 'text-yellow-600'
+                                    : 'text-purple-600'
+                                    ">{{ character.rarity }}★</span>
                             </div>
                         </li>
                     </ul>
@@ -287,51 +221,38 @@ const resetFilter = () => {
                     </h2>
 
                     <ul class="space-y-4">
-                        <li
-                            v-for="region in regions"
-                            :key="region.id"
-                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center"
-                        >
+                        <li v-for="region in regions" :key="region.id"
+                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center">
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Region
                                 </span>
                                 <span>{{ region.name }}</span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Description
                                 </span>
                                 <span>{{ region.description }}</span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Local Specialty
                                 </span>
                                 <span>{{ region.local_specialty }}</span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     Elite Boss
                                 </span>
                                 <span>{{ region.elite_boss }}</span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">
                                     World Boss
                                 </span>
                                 <span>{{ region.world_boss }}</span>
@@ -345,41 +266,60 @@ const resetFilter = () => {
                         Artifacts
                     </h2>
                     <ul class="space-y-4">
-                        <li
-                            v-for="artifact in artifacts"
-                            :key="artifact.id"
-                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center"
-                        >
+                        <li v-for="artifact in artifacts" :key="artifact.id"
+                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center">
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                    >Name</span
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">Name</span>
                                 <span>{{ artifact.name }}</span>
                             </div>
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                    >Two Piece Bonus</span
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">Two Piece Bonus</span>
                                 <span>{{ artifact.two_piece_bonus }}</span>
                             </div>
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                    >Four Piece Bonus</span
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">Four Piece Bonus</span>
                                 <span>
                                     {{ artifact.four_piece_bonus }}
                                 </span>
                             </div>
 
                             <div>
-                                <span
-                                    class="block text-gray-500 text-sm font-medium"
-                                    >Rarity</span
-                                >
+                                <span class="block text-gray-500 text-sm font-medium">Rarity</span>
                                 <span>{{ artifact.rarity }}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </section>
+                <section class="mb-16 w-full max-w-3xl">
+                    <h2 class="text-2xl font-semibold mb-4 text-center">
+                        Weapons
+                    </h2>
+                    <ul class="space-y-4">
+                        <li v-for="weapon in weapons"
+                            class="p-4 bg-white rounded-lg shadow hover:shadow-lg transition-shadow grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center text-center">
+                            <div>
+                                <span class="block text-gray-500 text-sm font-medium">Name</span>
+                                <span>{{ weapon.name }}</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-500 text-sm font-medium">Weapon Type</span>
+                                <span>{{ weapon.weapon_type }}</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-500 text-sm font-medium">Base Attack</span>
+                                <span>{{ weapon.base_attack }}</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-500 text-sm font-medium">Sub Stat</span>
+                                <span>{{ weapon.sub_stat }} {{ weapon.sub_stat_type }}</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-500 text-sm font-medium">Rarity</span>
+                                <span>{{ weapon.rarity }}★</span>
+                            </div>
+                            <div>
+                                <span class="block text-gray-500 text-sm font-medium">Passive</span>
+                                <span>{{ weapon.passive }}★</span>
                             </div>
                         </li>
                     </ul>
